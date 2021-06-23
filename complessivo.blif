@@ -1,0 +1,17 @@
+.model COMPLESSIVO
+.inputs Bi Cod3 Cod2 Cod1 Cod0 Chr9 Chr8 Chr7 Chr6 Chr5 Chr4 Chr3 Chr2 Chr1 Chr0 Chd15 Chd14 Chd13 Chd12 Chd11 Chd10 Chd9 Chd8 Chd7 Chd6 Chd5 Chd4 Chd3 Chd2 Chd1 Chd0
+
+.outputs Rc Ae Bb Che9 Che8 Che7 Che6 Che5 Che4 Che3 Che2 Che1 Che0 Ri 
+
+# unita' di controllo
+.subckt CONTROLLO Bi=Bi Cod3=Cod3 Cod2=Cod2 Cod1=Cod1 Cod0=Cod0 Ck=Ck Lt=Lt Ce1=Ce1 Ce0=Ce0 Rc=Rc Ae=Ae Bb=Bb Cd=Cd Cfe=Cfe Rt=Rt Ct=Ct Rsc=Rsc Ri=Ri
+
+# unita' di elaborazione
+.subckt ELABORAZIONE Cd=Cd Cfe=Cfe Ct=Ct Rt=Rt Rsc=Rsc Chr9=Chr9 Chr8=Chr8 Chr7=Chr7 Chr6=Chr6 Chr5=Chr5 Chr4=Chr4 Chr3=Chr3 Chr2=Chr2 Chr1=Chr1 Chr0=Chr0 Chd15=Chd15 Chd14=Chd14 Chd13=Chd13 Chd12=Chd12 Chd11=Chd11 Chd10=Chd10 Chd9=Chd9 Chd8=Chd8 Chd7=Chd7 Chd6=Chd6 Chd5=Chd5 Chd4=Chd4 Chd3=Chd3 Chd2=Chd2 Chd1=Chd1 Chd0=Chd0 Ce1=Ce1 Ce0=Ce0 Lt=Lt Ck=Ck Che9=Che9 Che8=Che8 Che7=Che7 Che6=Che6 Che5=Che5 Che4=Che4 Che3=Che3 Che2=Che2 Che1=Che1 Che0=Che0
+
+.end
+
+.search controllo.blif
+.search elaborazione.blif
+
+

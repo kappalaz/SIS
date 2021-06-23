@@ -1,0 +1,142 @@
+.model ELABORAZIONE
+.inputs Cd Cfe Ct Rt Rsc Chr9 Chr8 Chr7 Chr6 Chr5 Chr4 Chr3 Chr2 Chr1 Chr0 Chd15 Chd14 Chd13 Chd12 Chd11 Chd10 Chd9 Chd8 Chd7 Chd6 Chd5 Chd4 Chd3 Chd2 Chd1 Chd0
+.outputs Ce1 Ce0 Lt Ck Che9 Che8 Che7 Che6 Che5 Che4 Che3 Che2 Che1 Che0 
+
+# definizione delle costanti
+.names ZERO 
+
+# le costanti 
+.subckt COSTANTE0 O9=C09 O8=C08 O7=C07 O6=C06 O5=C05 O4=C04 O3=C03 O2=C02 O1=C01 O0=C00
+.subckt COSTANTE1 O9=C19 O8=C18 O7=C17 O6=C16 O5=C15 O4=C14 O3=C13 O2=C12 O1=C11 O0=C10
+.subckt COSTANTE2 O1=C21 O0=C20  
+.subckt COSTANTE3 O1=C23 O0=C22  
+.subckt COSTANTE4 O1=C25 O0=C24 
+
+#mux reset cifra 
+.subckt MUX2 f1=Rsc c1=C21 c0=C20 d1=Ce1 d0=Ce0 e1=Z1 e0=Z0 
+
+#mux cifra errata
+.subckt MUX2 f1=Cfe c1=C23 c0=C22 d1=Z1 d0=Z0 e1=D1 e0=D0
+
+#registro numero 1
+.subckt REGISTRO2 A1=D1 A0=D0 O1=Ce1 O0=Ce0
+
+#mux conta tetativo
+.subckt MUX2 f1=Ct c1=Ce1 c0=Ce0 d1=C21 d0=C20 e1=F1 e0=F0
+
+
+#sommatore (Cout??)
+.subckt SOMMATORE2 A1=F1 A0=F0 B1=G1 B0=G0 CIN=ZERO O1=P1 O0=P0 COUT=COUT
+
+#mux sommatore
+.subckt MUX2 f1=Rt c1=C21 c0=C20 d1=P1 d0=P0 e1=Y1 e0=Y0
+
+#registro numero 2 
+.subckt REGISTRO2 A1=Y1 A0=Y0 O1=G1 O0=G0 
+
+#uscita va nel sommatore e nel uguale11 ??
+
+#uguale a 11
+.subckt UGUALE2 A1=C25 A0=C24 B1=G1 B0=G0 O=Lt
+
+#mux check disponibilita 
+.subckt MUX10 s1=Cd a9=Chr9 a8=Chr8 a7=Chr7 a6=Chr6 a5=Chr5 a4=Chr4 a3=Chr3 a2=Chr2 a1=Chr1 a0=Chr0 b9=C09 b8=C08 b7=C07 b6=C06 b5=C05 b4=C04 b3=C03 b2=C02 b1=C01 b0=C00 o9=I9 o8=I8 o7=I7 o6=I6 o5=I5 o4=I4 o3=I3 o2=I2 o1=I1 o0=I0
+
+#<=
+.subckt 10_le C9=I9 C8=I8 C7=I7 C6=I6 C5=I5 C4=I4 C3=I3 C2=I2 C1=I1 C0=I0 D9=C19 D8=C18 D7=C17 D6=C16 D5=C15 D4=C14 D3=C13 D2=C12 D1=C11 D0=C10 CleD=U1
+
+#mux dopo <= 
+.subckt MUX10 s1=U1 a9=Chr9 a8=Chr8 a7=Chr7 a6=Chr6 a5=Chr5 a4=Chr4 a3=Chr3 a2=Chr2 a1=Chr1 a0=Chr0 b9=C09 b8=C08 b7=C07 b6=C06 b5=C05 b4=C04 b3=C03 b2=C02 b1=C01 b0=C00 o9=H9 o8=H8 o7=H7 o6=H6 o5=H5 o4=H4 o3=H3 o2=H2 o1=H1 o0=H0
+
+#extender
+.subckt EXTENDER A9=H9 A8=H8 A7=H7 A6=H6 A5=H5 A4=H4 A3=H3 A2=H2 A1=H1 A0=H0 O15=J15 O14=J14 O13=J13 O12=J12 O11=J11 O10=J10 O9=J9 O8=J8 O7=J7 O6=J6 O5=J5 O4=J4 O3=J3 O2=J2 O1=J1 O0=J0
+
+#shifter
+.subckt SHIFTER A15=J15 A14=J14 A13=J13 A12=J12 A11=J11 A10=J10 A9=J9 A8=J8 A7=J7 A6=J6 A5=J5 A4=J4 A3=J3 A2=J2 A1=J1 A0=J0 O15=K15 O14=K14 O13=K13 O12=K12 O11=K11 O10=K10 O9=K9 O8=K8 O7=K7 O6=K6 O5=K5 O4=K4 O3=K3 O2=K2 O1=K1 O0=K0
+
+#> a 16 bit 
+.subckt 16_gt A15=Chd15 A14=Chd14 A13=Chd13 A12=Chd12 A11=Chd11 A10=Chd10 A9=Chd9 A8=Chd8 A7=Chd7 A6=Chd6 A5=Chd5 A4=Chd4 A3=Chd3 A2=Chd2 A1=Chd1 A0=Chd0 B15=K15 B14=K14 B13=K13 B12=K12 B11=K11 B10=K10 B9=K9 B8=K8 B7=K7 B6=K6 B5=K5 B4=K4 B3=K3 B2=K2 B1=K1 B0=K0 AgtB=Ck
+
+#cash ok
+
+#mux dopo > 
+.subckt MUX10 s1=Ck a9=Chr9 a8=Chr8 a7=Chr7 a6=Chr6 a5=Chr5 a4=Chr4 a3=Chr3 a2=Chr2 a1=Chr1 a0=Chr0 b9=C09 b8=C08 b7=C07 b6=C06 b5=C05 b4=C04 b3=C03 b2=C02 b1=C01 b0=C00 o9=Che9 o8=Che8 o7=Che7 o6=Che6 o5=Che5 o4=Che4 o3=Che3 o2=Che2 o1=Che1 o0=Che0
+
+
+# modello della costante 0 su 10 bit
+.model COSTANTE0
+.outputs O9 O8 O7 O6 O5 O4 O3 O2 O1 O0
+.names O9
+.names O8
+.names O7
+.names O6
+.names O5
+.names O4
+.names O3
+.names O2
+.names O1
+.names O0
+.end
+
+# modello della costante 1023 su 10 bit
+.model COSTANTE1
+.outputs O9 O8 O7 O6 O5 O4 O3 O2 O1 O0
+.names O9
+1
+.names O8
+1
+.names O7
+1
+.names O6
+1
+.names O5
+1
+.names O4
+1
+.names O3
+1
+.names O2
+1
+.names O1
+1
+.names O0
+1
+.end
+
+# modello della costante 0 su 2 bit
+.model COSTANTE2
+.outputs O1 O0
+.names O1
+.names O0
+.end
+
+# modello della costante 1 su 2 bit
+.model COSTANTE3
+.outputs O1 O0
+.names O1
+.names O0
+1
+.end 
+
+# modello della costante 3 su 2 bit
+.model COSTANTE4
+.outputs O1 O0
+.names O1
+1
+.names O0
+1
+.end
+
+.end
+
+.search 10_le.blif
+.search 16_gt.blif 
+.search registro2.blif 
+.search mux2.blif  
+.search mux10.blif
+.search sommatore2.blif 
+.search uguale2.blif 
+.search extender.blif
+.search shifter.blif
+
+

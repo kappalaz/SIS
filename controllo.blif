@@ -1,0 +1,35 @@
+.model CONTROLLO
+.inputs Bi Cod3 Cod2 Cod1 Cod0 Ck Lt Ce1 Ce0
+.outputs Rc Ae Bb Cd Cfe Rt Ct Rsc Ri 
+
+.start_kiss
+.i 9 #numero di segnali di ingresso
+.o 9 #numero di segnali di uscita
+.s 7 #numero di stati
+.p 17 #numero di transizioni
+.r IB #stato di reset
+
+
+#tabella delle transizioni
+#(ingressi, stato presente, stato prossimo, uscita)
+0-------- IB IB 000000010
+1-------- IB C1 000001010
+10101---- C1 C2 000000000
+11------- C1 C2 000010000
+1---0---- C1 C2 000010000
+1-0-1---- C1 C2 000010000
+10101---- C2 C3 000000000
+11------- C2 C3 000010000
+1---0---- C2 C3 000010000
+1-0-1---- C2 C3 000010000
+1-----001 C3 Rst 000010100
+1------00 Rst C1 100000010
+10000-000 C3 CK 000100000
+1-----1-- C3 EB 001000000
+1----0--- CK CK 000100011
+1----1--- CK EB 010000000
+0-------- EB IB 000001010
+
+.end_kiss
+
+.end

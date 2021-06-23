@@ -1,0 +1,11 @@
+#-------------------------------------------------------------------------
+#   F.Fummi, M.G.Sami, C.Silvano, "Progettazione Digitale", MacGrawHill
+#   11.1.2 sommatore 2 bit - File : sommatore2.blif
+#-------------------------------------------------------------------------
+.model SOMMATORE2
+.inputs A1 A0 B1 B0 CIN
+.outputs O1 O0 COUT
+.subckt SOMMATORE A=A0 B=B0 CIN=CIN O=O0 COUT=C0
+.subckt SOMMATORE A=A1 B=B1 CIN=C0 O=O1 COUT=COUT
+.end
+.search sommatore.blif 

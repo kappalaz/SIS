@@ -1,0 +1,9 @@
+# Porta XOR
+
+.model xor
+.inputs A B
+.outputs X
+.names A B X
+00 0
+11 0
+.end
